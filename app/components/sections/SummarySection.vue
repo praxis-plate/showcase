@@ -6,8 +6,8 @@
       </h2>
 
       <p class="summary__description">
-        Платформа объединяет обучение, подготовку курсов и серверную часть в одну
-        систему. Платформа поддерживает интерактивные задания, управление
+        Платформа объединяет обучение, подготовку курсов и серверную часть в
+        одну систему. Платформа поддерживает интерактивные задания, управление
         учебными материалами, сохранение прогресса и дальнейшее расширение
         образовательных сценариев.
       </p>
@@ -58,9 +58,12 @@ const summaryPills = [
 .summary {
   text-align: center;
 
+  :deep(.section-heading) {
+    justify-self: center;
+  }
+
   :deep(.base-section__eyebrow) {
     display: block;
-    justify-self: center;
     text-align: center;
   }
 
@@ -69,23 +72,6 @@ const summaryPills = [
     max-width: 42.5rem;
     margin: 0 auto;
     padding: 0 0 0.5rem;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 18%;
-      left: 50%;
-      width: 40rem;
-      height: 20rem;
-      background: radial-gradient(
-        ellipse,
-        rgba(43, 230, 188, 0.05) 0%,
-        transparent 70%
-      );
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: -1;
-    }
   }
 
   &__title {

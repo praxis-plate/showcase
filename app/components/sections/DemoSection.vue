@@ -29,9 +29,20 @@
         </label>
 
         <div class="demo-block__viewport">
+          <video
+            v-if="activeChapter.video && !failedVideos[activeChapter.id]"
+            :src="activeChapter.video"
+            :poster="activeChapter.poster"
+            class="demo-block__video"
+            controls
+            playsinline
+            preload="metadata"
+            @error="markVideoFailed(activeChapter.id)"
+          />
+
           <img
-            v-if="activeChapter.image"
-            :src="activeChapter.image"
+            v-else-if="activeChapter.poster"
+            :src="activeChapter.poster"
             :alt="activeChapter.title"
             class="demo-block__image"
           >
@@ -82,7 +93,8 @@ type DemoChapter = {
   duration: string
   sidebarDescription: string
   placeholder: string
-  image?: string
+  poster?: string
+  video?: string
 }
 
 const chapters: [DemoChapter, ...DemoChapter[]] = [
@@ -92,7 +104,8 @@ const chapters: [DemoChapter, ...DemoChapter[]] = [
     stageLabel: 'Приложение обучающегося',
     duration: '0:00',
     sidebarDescription: 'Поиск курса, урок и выполнение заданий',
-    placeholder: 'Здесь будет видео с потоком обучения и взаимодействием с заданиями.'
+    placeholder: 'Положите видео обучающегося в public/videos/demo-learner.mp4.',
+    video: '/videos/demo-learner.mp4'
   },
   {
     id: 'cms',
@@ -100,8 +113,9 @@ const chapters: [DemoChapter, ...DemoChapter[]] = [
     stageLabel: 'Панель управления',
     duration: '3:45',
     sidebarDescription: 'Создание курса, модули и публикация',
-    placeholder: 'Здесь будет видео с созданием курса и публикацией из CMS.',
-    image: '/images/cms-course-create-dark-ru.png'
+    placeholder: 'Положите видео CMS в public/videos/demo-cms.mp4.',
+    poster: '/images/cms-course-create-dark-ru.png',
+    video: '/videos/demo-cms.mp4'
   },
   {
     id: 'platform',
@@ -109,15 +123,24 @@ const chapters: [DemoChapter, ...DemoChapter[]] = [
     stageLabel: 'Сквозной обзор',
     duration: '7:20',
     sidebarDescription: 'Полный путь с подсказками ИИ и аналитикой',
-    placeholder: 'Здесь будет итоговое демо, объединяющее обучение, авторинг и серверную логику.'
+    placeholder: 'Положите итоговое видео в public/videos/demo-platform.mp4.',
+    video: '/videos/demo-platform.mp4'
   }
 ] 
 
 const activeChapterId = shallowRef(chapters[0].id)
+const failedVideos = shallowRef<Record<string, boolean>>({})
 
 const activeChapter = computed(
   () => chapters.find((chapter) => chapter.id === activeChapterId.value) ?? chapters[0]
 )
+
+const markVideoFailed = (id: string) => {
+  failedVideos.value = {
+    ...failedVideos.value,
+    [id]: true
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -193,6 +216,16 @@ const activeChapter = computed(
     border: 1px solid rgba(48, 54, 61, 0.65);
     border-radius: 1rem;
     object-fit: cover;
+    box-shadow: var(--shadow-surface);
+  }
+
+  &__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(48, 54, 61, 0.65);
+    border-radius: 1rem;
+    background: var(--color-background);
     box-shadow: var(--shadow-surface);
   }
 
