@@ -22,7 +22,10 @@
 
       <div
         class="architecture-diagram__nodes"
-        :class="{ 'architecture-diagram__nodes--three': layer.items.length === 3 }"
+        :class="{
+          'architecture-diagram__nodes--one': layer.items.length === 1,
+          'architecture-diagram__nodes--three': layer.items.length === 3
+        }"
       >
         <article
           v-for="item in layer.items"
@@ -66,14 +69,22 @@ const layers = [
       { name: 'Flutter система управления контентом', sub: 'Desktop &bull; macOS & Windows' }
     ]
   },
+    {
+    id: 'generated-client',
+    label: 'Промежуточный слой',
+    color: 'var(--color-primary-dark)',
+    borderColor: 'rgba(30, 180, 150, 0.24)',
+    items: [
+      { name: 'Serverpod Client', sub: 'Dart &bull; typed RPC' },
+    ]
+  },
   {
     id: 'backend',
     label: 'Серверный слой',
     color: 'var(--color-primary-dark)',
     borderColor: 'rgba(30, 180, 150, 0.24)',
     items: [
-      { name: 'Serverpod', sub: 'Dart &bull; typed RPC' },
-      { name: 'REST + WebSocket', sub: 'Typed API contracts' }
+      { name: 'Serverpod', sub: 'Dart' },
     ]
   },
   {
@@ -145,8 +156,13 @@ const layers = [
 
   &__nodes {
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
+
+    &--one {
+      grid-template-columns: 1fr;
+    }
 
     &--three {
       grid-template-columns: repeat(3, minmax(0, 1fr));
