@@ -1,0 +1,101 @@
+@use './mixins' as *;
+
+#__nuxt {
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 86% 12%, rgba(43, 230, 188, 0.14), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%),
+    var(--color-background);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.38;
+  background-image:
+    linear-gradient(rgba(48, 54, 61, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(48, 54, 61, 0.28) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at 82% 16%, black 18%, transparent 72%);
+  pointer-events: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+p {
+  color: var(--color-text-muted);
+}
+
+a {
+  transition:
+    color var(--transition-base),
+    border-color var(--transition-base),
+    opacity var(--transition-base);
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(calc(100% - 3rem), var(--container-width));
+  margin: 0 auto;
+
+  @include mobile {
+    width: min(calc(100% - 2rem), var(--container-width));
+  }
+}
+
+.section {
+  padding: var(--space-4xl) 0;
+
+  @include mobile {
+    padding: var(--space-3xl) 0;
+  }
+}
+
+.section-heading {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 46rem;
+  margin-bottom: clamp(3rem, 5vw, 4rem);
+
+  @include mobile {
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    justify-items: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-lg);
+
+  @include laptop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
