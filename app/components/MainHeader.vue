@@ -3,7 +3,7 @@
     <div class="container header__inner">
       <a href="#hero" class="header__brand">
         <img
-          src="/images/praxis-org-logo.png"
+          :src="publicPath('/images/cms-course-create-dark-ru.png')"
           alt=""
           class="header__brand-logo"
         >
@@ -65,6 +65,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BaseButton from "./ui/BaseButton.vue";
+import { publicPath } from '~/utils/publicPath';
 
 const navItems = [
   { label: "Обзор", href: "#overview" },

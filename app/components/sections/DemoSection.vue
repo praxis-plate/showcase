@@ -85,6 +85,7 @@
 import { computed, shallowRef } from 'vue'
 import BaseIcon from '../ui/BaseIcon.vue'
 import BaseSection from '../ui/BaseSection.vue'
+import { publicPath } from '~/utils/publicPath';
 
 type DemoChapter = {
   id: string
@@ -105,7 +106,7 @@ const chapters: [DemoChapter, ...DemoChapter[]] = [
     duration: '0:32',
     sidebarDescription: 'Поиск курса, урок и выполнение заданий',
     placeholder: 'Положите видео обучающегося в public/videos/demo-learner.mov.',
-    video: '/videos/demo-learner.mov'
+    video: publicPath('/videos/demo-learner.mov')
   }
 ] 
 
