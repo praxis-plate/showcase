@@ -178,7 +178,7 @@ const heroTasks = [
 
     &__title {
       font-size: clamp(2.35rem, 10vw, 3.6rem);
-      max-width: 10ch;
+      max-width: 40rem;
     }
 
     &__description {
