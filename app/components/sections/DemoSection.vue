@@ -5,7 +5,7 @@
     title="Платформа в действии"
     description="Короткая демонстрация показывает, как обучающийся проходит курс и задания, а автор готовит материалы через CMS."
   >
-    <div class="demo-block">
+    <div :class="['demo-block', { 'demo-block--single': !hasMultipleChapters }]">
       <div class="demo-block__stage">
         <div class="demo-block__stage-top">
           <div class="demo-block__stage-label">
@@ -15,7 +15,7 @@
           <span class="demo-block__stage-time">{{ activeChapter.duration }}</span>
         </div>
 
-        <label class="demo-block__mobile-select">
+        <label v-if="hasMultipleChapters" class="demo-block__mobile-select">
           <span class="demo-block__mobile-select-label">Сценарий</span>
           <select v-model="activeChapterId" class="demo-block__mobile-select-control">
             <option
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <aside class="demo-block__sidebar">
+      <aside v-if="hasMultipleChapters" class="demo-block__sidebar">
         <p class="demo-block__sidebar-eyebrow">Сценарии</p>
 
         <button
@@ -102,34 +102,16 @@ const chapters: [DemoChapter, ...DemoChapter[]] = [
     id: 'learner',
     title: 'Приложение обучающегося',
     stageLabel: 'Приложение обучающегося',
-    duration: '0:00',
+    duration: '0:32',
     sidebarDescription: 'Поиск курса, урок и выполнение заданий',
-    placeholder: 'Положите видео обучающегося в public/videos/demo-learner.mp4.',
-    video: '/videos/demo-learner.mp4'
-  },
-  {
-    id: 'cms',
-    title: 'Рабочий процесс CMS',
-    stageLabel: 'Панель управления',
-    duration: '3:45',
-    sidebarDescription: 'Создание курса, модули и публикация',
-    placeholder: 'Положите видео CMS в public/videos/demo-cms.mp4.',
-    poster: '/images/cms-course-create-dark-ru.png',
-    video: '/videos/demo-cms.mp4'
-  },
-  {
-    id: 'platform',
-    title: 'Сквозной сценарий платформы',
-    stageLabel: 'Сквозной обзор',
-    duration: '7:20',
-    sidebarDescription: 'Полный путь с подсказками ИИ и аналитикой',
-    placeholder: 'Положите итоговое видео в public/videos/demo-platform.mp4.',
-    video: '/videos/demo-platform.mp4'
+    placeholder: 'Положите видео обучающегося в public/videos/demo-learner.mov.',
+    video: '/videos/demo-learner.mov'
   }
 ] 
 
 const activeChapterId = shallowRef(chapters[0].id)
 const failedVideos = shallowRef<Record<string, boolean>>({})
+const hasMultipleChapters = chapters.length > 1
 
 const activeChapter = computed(
   () => chapters.find((chapter) => chapter.id === activeChapterId.value) ?? chapters[0]
@@ -150,6 +132,12 @@ const markVideoFailed = (id: string) => {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 22rem;
   gap: 1.5rem;
+
+  &--single {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 58rem;
+    margin: 0 auto;
+  }
 
   &__stage,
   &__sidebar {
@@ -190,6 +178,8 @@ const markVideoFailed = (id: string) => {
   }
 
   &__viewport {
+    display: flex;
+    justify-content: center;
     position: relative;
     min-height: 31rem;
     padding: 1.8rem;
@@ -203,6 +193,23 @@ const markVideoFailed = (id: string) => {
       4rem 4rem,
       auto,
       auto;
+  }
+
+  &--single &__viewport {
+    min-height: 24rem;
+    padding: 1.25rem;
+  }
+
+  &--single &__stage-top {
+    padding: 0.95rem 1.2rem;
+  }
+
+  &--single &__stage-label {
+    font-size: 0.95rem;
+  }
+
+  &--single &__stage-time {
+    font-size: 0.82rem;
   }
 
   &__mobile-select {
@@ -221,7 +228,7 @@ const markVideoFailed = (id: string) => {
 
   &__video {
     display: block;
-    width: 100%;
+    width: 30%;
     height: auto;
     border: 1px solid rgba(48, 54, 61, 0.65);
     border-radius: 1rem;
@@ -349,6 +356,10 @@ const markVideoFailed = (id: string) => {
       order: -1;
     }
 
+    &__video {
+      width: 50%;;
+    }
+
     &__chapter {
       padding-top: 1rem;
       padding-bottom: 1rem;
@@ -369,6 +380,10 @@ const markVideoFailed = (id: string) => {
 
     &__sidebar {
       display: none;
+    }
+
+    &__video {
+      width: 100%;;
     }
 
     &__mobile-select {
@@ -394,6 +409,12 @@ const markVideoFailed = (id: string) => {
       background: rgba(255, 255, 255, 0.03);
       color: var(--color-text);
       font: inherit;
+      font-size: 1rem;
+    }
+
+    &__mobile-select-control,
+    &__mobile-select-control option {
+      font-size: 1rem;
     }
 
     &__viewport {
