@@ -3,7 +3,7 @@
     <div class="container header__inner">
       <a href="#hero" class="header__brand">
         <img
-          :src="publicPath('/images/cms-course-create-dark-ru.png')"
+          :src="publicPath('/images/praxis-org-logo.png')"
           alt=""
           class="header__brand-logo"
         >

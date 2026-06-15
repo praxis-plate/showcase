@@ -51,9 +51,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { publicPath } from '~/utils/publicPath';
 
 const hasError = ref(false);
-const previewImageSrc = "/images/cms-course-create-dark-ru.png";
+const previewImageSrc = publicPath('/images/cms-course-create-dark-ru.png');
 
 const courses = [
   {
