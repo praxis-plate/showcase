@@ -1,5 +1,5 @@
 <template>
-  <BaseSection id="summary" eyebrow="06 &mdash; Summary" class="summary">
+  <BaseSection id="summary" eyebrow="06 &mdash; итог" class="summary">
     <div class="summary__inner">
       <h2 class="summary__title">
         Цифровая экосистема Praxis для обучения программированию
@@ -151,12 +151,17 @@ const summaryPills = [
     }
 
     &__title {
-      max-width: 11ch;
+      max-width: 100%;
+      margin-bottom: 1.25rem;
+      font-size: clamp(1.5rem, 7.8vw, 2.5rem);
+      line-height: 1.08;
+      overflow-wrap: anywhere;
     }
 
     &__description {
       margin-bottom: 2rem;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
     }
 
     &__pills {

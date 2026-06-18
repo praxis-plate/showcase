@@ -177,12 +177,15 @@ const heroTasks = [
     }
 
     &__title {
-      font-size: clamp(2.35rem, 10vw, 3.6rem);
-      max-width: 40rem;
+      max-width: 100%;
+      font-size: clamp(1.55rem, 8.4vw, 2.6rem);
+      line-height: 1.06;
+      overflow-wrap: anywhere;
     }
 
     &__description {
-      font-size: var(--text-md);
+      font-size: 0.95rem;
+      line-height: 1.55;
     }
 
     &__actions {
