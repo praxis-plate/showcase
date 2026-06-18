@@ -107,6 +107,15 @@ const chapters: [DemoChapter, ...DemoChapter[]] = [
     sidebarDescription: 'Поиск курса, урок и выполнение заданий',
     placeholder: 'Положите видео обучающегося в public/videos/demo-learner.mov.',
     video: publicPath('/videos/demo-learner.mov')
+  },
+  {
+    id: 'cms',
+    title: 'CMS для автора',
+    stageLabel: 'CMS для автора',
+    duration: '0:20',
+    sidebarDescription: 'Создание материалов и управление курсом',
+    placeholder: 'Положите видео CMS в public/videos/demo-cms.mp4.',
+    video: publicPath('/videos/demo-cms.mp4')
   }
 ] 
 
